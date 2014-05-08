@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <configs>
+    <app value="somevalue" key="cryptokey"></app>
+  </configs>
+  <users>
+    <user id="0" password="6D1D7C42C83D5B8EA68816FF4B7EAA48" username="maru" roles="0,1"></user>
+    <user id="1" password="6D1D7C42C83D5B8EA68816FF4B7EAA48" username="the_other" roles="1"></user>
+  </users>
+</root>

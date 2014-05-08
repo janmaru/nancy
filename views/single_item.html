@@ -1,0 +1,115 @@
+﻿@Master['master/master_internal']
+@Section['Css']
+<link href="../css/main.css" rel="stylesheet" />
+<link href="../css/jquery.Jcrop.min.css" rel="stylesheet" />
+@EndSection
+@Section['Content']
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Modify a single Item</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    @If.Hasmessages
+    @Partial['partial/alert.html']
+    @EndIf
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    You have selected the "@Model.item.Title" item
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form role="form" method="post">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input class="form-control" placeholder="Enter some text" value="@Model.item.Title" name="title">
+                                    <p class="help-block">The title should be quite engaging.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Image</label>
+                                    <input type="hidden" name="image" value="@Model.item.Image" />
+                                    <img alt="" src="../images/@Model.item.Image" width="100" />
+                                </div>
+                                <div class="form-group">
+                                    <!--<label>Change Image</label>-->
+                                    <!--<input type="file">-->
+                                    <!-- Button trigger modal -->
+                                    <div>
+                                        <a data-toggle="modal" href="#modal_image" class="btn btn-primary btn-sm">Change Image</a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" rows="3" name="description">@Model.item.Description</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">Confirm</button>
+                                <a href="/items" type="reset" class="btn btn-default">Cancel</a>
+                            </form>
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<!-- /#page-wrapper -->
+
+<div class="modal fade" id="modal_image" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Change Image with Jcrop & HTML5</h4>
+            </div>
+            <form method="post" action="/items/@Model.item.Order" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <!-- hidden crop params -->
+                    <input type="hidden" id="x1" name="x1" />
+                    <input type="hidden" id="y1" name="y1" />
+                    <input type="hidden" id="x2" name="x2" />
+                    <input type="hidden" id="y2" name="y2" />
+                    <input type="hidden" id="b64_img" name="b64_img" />
+
+                    <h3>Step1: Please select image file</h3>
+                    <div><input type="file" name="image_file" id="image_file" onchange="fileSelectHandler()" /></div>
+                    <br />
+                    <div class="error alert alert-danger alert-dismissable"></div>
+                    <div class="step2">
+                        <h3>Step2: Please select a crop region</h3>
+                        <img id="preview" class="col-lg-12" />
+                        <!--<label>File size</label>--> <input type="hidden" id="filesize" name="filesize" class="form-control" />
+                        <!--<label>Type</label>--> <input type="hidden" id="filetype" name="filetype" class="form-control" />
+                        <!--<label>Image dimension</label>--> <input type="hidden" id="filedim" name="filedim" class="form-control" />
+                        <!--<label>W</label>--> <input type="hidden" id="w" name="w" class="form-control" />
+                        <!--<label>H</label>--> <input type="hidden" id="h" name="h" class="form-control" />
+                    </div>
+                </div>
+                <br />
+                <div class="modal-footer step2">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" value="Upload" class="btn btn-info" id="upload" data-id="@Model.item.Order" />
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@EndSection
+
+@Section['Script']
+<script src="../js/jquery.Jcrop.js"></script>
+<!--<script src="../js/jquery.Jcrop.min.js"></script>-->
+<script src="../js/script.js"></script>
+
+@EndSection
